@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fault Detection Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Fault Detection & Classification</h1>
+      <p>
+        Enter the feature values expected by your IBM Cloud model and submit them for inference.
+      </p>
+
+      {% if not configured %}
+      <div class="warning">
+        The app is ready, but IBM_MODEL_URL is not configured yet. Set it before sending requests.
+      </div>
+      {% endif %}
+
+      <form action="/predict" method="post">
+        <label for="payload">Input data</label>
+        <textarea id="payload" name="payload" rows="10">{{ sample_payload }}</textarea>
+        <p class="hint">Use JSON such as {"temperature": 42, "vibration": 2.1, "current": 8.7}</p>
+        <button type="submit">Run prediction</button>
+      </form>
+    </main>
+  </body>
+</html>

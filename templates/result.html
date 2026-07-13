@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Prediction Result</h1>
+
+      <section class="card">
+        <h2>Submitted input</h2>
+        <pre>{{ payload | tojson(indent=2) }}</pre>
+      </section>
+
+      <section class="card">
+        <h2>Model response</h2>
+        <pre>{{ prediction | tojson(indent=2) }}</pre>
+      </section>
+
+      <a href="/" class="link">Try another input</a>
+    </main>
+  </body>
+</html>

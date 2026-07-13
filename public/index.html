@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel-ML | Predictive Maintenance & Fault Detection</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glow-bg"></div>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i data-lucide="shield-alert" class="icon-pulse"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>SENTINEL<span>.ML</span></h1>
+                    <p>Real-time Telemetry Fault Classification</p>
+                </div>
+            </div>
+            
+            <div class="header-controls">
+                <div class="status-badge" id="server-status">
+                    <span class="status-dot warning"></span>
+                    <span class="status-text">Connecting to Server...</span>
+                </div>
+                
+                <div class="mode-selector">
+                    <span class="mode-label">Mode:</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mode-toggle" disabled>
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="mode-val" id="mode-val-text">Demo Mode</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-grid">
+            
+            <!-- Left Column: Inputs & Telemetry Panel -->
+            <section class="dashboard-card inputs-card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <i data-lucide="sliders" class="card-header-icon"></i>
+                        <h2>Telemetry Control Console</h2>
+                    </div>
+                    <span class="badge">Telemetry Inputs</span>
+                </div>
+                
+                <div class="card-body">
+                    <!-- Presets Selector -->
+                    <div class="presets-section">
+                        <label class="section-label">Load Scenario Preset</label>
+                        <div class="preset-buttons">
+                            <button class="preset-btn active" data-preset="healthy">
+                                <i data-lucide="check-circle-2"></i> Healthy State
+                            </button>
+                            <button class="preset-btn" data-preset="warning">
+                                <i data-lucide="alert-triangle"></i> Thermal Strain
+                            </button>
+                            <button class="preset-btn" data-preset="bearing">
+                                <i data-lucide="activity"></i> Mechanical Fault
+                            </button>
+                            <button class="preset-btn" data-preset="overload">
+                                <i data-lucide="zap"></i> Power Overload
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="divider"><span>OR CUSTOMIZE TELEMETRY</span></div>
+
+                    <!-- Telemetry Form -->
+                    <form id="telemetry-form" class="telemetry-form">
+                        
+                        <!-- Temperature -->
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label for="temp-input">Temperature (°C)</label>
+                                <span class="val-display" id="temp-val">50.0</span>
+                            </div>
+                            <div class="input-range-row">
+                                <input type="range" id="temp-input" min="10" max="120" step="0.5" value="50.0">
+                                <input type="number" id="temp-num" min="10" max="120" step="0.5" value="50.0" class="num-input">
+                            </div>
+                        </div>
+
+                        <!-- Vibration -->
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label for="vib-input">Mechanical Vibration (g)</label>
+                                <span class="val-display" id="vib-val">0.040</span>
+                            </div>
+                            <div class="input-range-row">
+                                <input type="range" id="vib-input" min="0.005" max="0.250" step="0.001" value="0.040">
+                                <input type="number" id="vib-num" min="0.005" max="0.250" step="0.001" value="0.040" class="num-input">
+                            </div>
+                        </div>
+
+                        <!-- Voltage -->
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label for="volt-input">Supply Voltage (V)</label>
+                                <span class="val-display" id="volt-val">220.0</span>
+                            </div>
+                            <div class="input-range-row">
+                                <input type="range" id="volt-input" min="150" max="280" step="1.0" value="220.0">
+                                <input type="number" id="volt-num" min="150" max="280" step="1.0" value="220.0" class="num-input">
+                            </div>
+                        </div>
+
+                        <!-- Current -->
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label for="curr-input">Current Draw (A)</label>
+                                <span class="val-display" id="curr-val">10.0</span>
+                            </div>
+                            <div class="input-range-row">
+                                <input type="range" id="curr-input" min="1" max="30" step="0.1" value="10.0">
+                                <input type="number" id="curr-num" min="1" max="30" step="0.1" value="10.0" class="num-input">
+                            </div>
+                        </div>
+
+                        <!-- Pressure -->
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label for="press-input">System Pressure (bar)</label>
+                                <span class="val-display" id="press-val">3.00</span>
+                            </div>
+                            <div class="input-range-row">
+                                <input type="range" id="press-input" min="0.5" max="10.0" step="0.05" value="3.00">
+                                <input type="number" id="press-num" min="0.5" max="10.0" step="0.05" value="3.00" class="num-input">
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="form-actions">
+                            <button type="button" id="reset-btn" class="btn btn-secondary">
+                                <i data-lucide="refresh-cw"></i> Reset Form
+                            </button>
+                            <button type="submit" id="submit-btn" class="btn btn-primary">
+                                <i data-lucide="cpu"></i> Run Diagnostic
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Right Column: Diagnostics & Output Panel -->
+            <div class="results-column">
+                
+                <!-- Main Prediction Output Card -->
+                <section class="dashboard-card results-card" id="results-panel">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i data-lucide="activity" class="card-header-icon"></i>
+                            <h2>Diagnostic Analysis</h2>
+                        </div>
+                        <span class="badge pulse-badge" id="live-indicator">LIVE PREDICTION</span>
+                    </div>
+
+                    <div class="card-body prediction-container">
+                        <!-- Welcome / Prompt State -->
+                        <div id="results-prompt" class="results-prompt">
+                            <div class="pulse-ring">
+                                <i data-lucide="scan-line" class="icon-xl text-primary animate-pulse"></i>
+                            </div>
+                            <h3>Diagnostic Ready</h3>
+                            <p>Configure parameters on the console and click "Run Diagnostic" to perform predictive fault analysis.</p>
+                        </div>
+
+                        <!-- Loading State -->
+                        <div id="results-loading" class="results-loading hidden">
+                            <div class="spinner-outer">
+                                <div class="spinner-inner"></div>
+                            </div>
+                            <h3>Evaluating Telemetry</h3>
+                            <p>Forwarding input variables to Watson Machine Learning classifier...</p>
+                        </div>
+
+                        <!-- Error State -->
+                        <div id="results-error" class="results-error hidden">
+                            <i data-lucide="x-octagon" class="icon-xl text-danger"></i>
+                            <h3>Diagnostic Failed</h3>
+                            <p id="error-message">WML Server returned an invalid response. Check connection settings.</p>
+                            <button class="btn btn-secondary btn-sm" id="error-retry-btn">Retry Diagnostic</button>
+                        </div>
+
+                        <!-- Success Prediction State -->
+                        <div id="results-success" class="results-success hidden">
+                            
+                            <!-- Classification Badge / Box -->
+                            <div class="alert-box success" id="classification-box">
+                                <div class="alert-icon-container">
+                                    <i data-lucide="check-circle" id="classification-icon"></i>
+                                </div>
+                                <div class="alert-text-container">
+                                    <h3 id="predicted-class">NORMAL OPERATION</h3>
+                                    <p id="alert-subtitle">Telemetry indices are nominal</p>
+                                </div>
+                            </div>
+
+                            <!-- Visual Indicators (Gauges and breakdown) -->
+                            <div class="metrics-grid">
+                                
+                                <!-- Confidence Radial Gauge -->
+                                <div class="gauge-card">
+                                    <h4 class="metric-label">Prediction Confidence</h4>
+                                    <div class="radial-gauge-container">
+                                        <svg class="radial-gauge" viewBox="0 0 100 100">
+                                            <circle class="gauge-bg" cx="50" cy="50" r="40" />
+                                            <circle class="gauge-fill" id="gauge-path" cx="50" cy="50" r="40" style="stroke-dasharray: 251.2; stroke-dashoffset: 251.2;" />
+                                        </svg>
+                                        <div class="gauge-center-val">
+                                            <span id="confidence-val">95%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Probability Distribution -->
+                                <div class="distribution-card">
+                                    <h4 class="metric-label">Probability Spectrum</h4>
+                                    
+                                    <div class="prob-row">
+                                        <div class="prob-labels">
+                                            <span>Normal Operation</span>
+                                            <span id="prob-normal-val">95%</span>
+                                        </div>
+                                        <div class="progress-track">
+                                            <div class="progress-bar healthy" id="prob-normal-bar" style="width: 95%;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="prob-row">
+                                        <div class="prob-labels">
+                                            <span>Warning State</span>
+                                            <span id="prob-warning-val">4%</span>
+                                        </div>
+                                        <div class="progress-track">
+                                            <div class="progress-bar warning" id="prob-warning-bar" style="width: 4%;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="prob-row">
+                                        <div class="prob-labels">
+                                            <span>Critical Fault</span>
+                                            <span id="prob-critical-val">1%</span>
+                                        </div>
+                                        <div class="progress-track">
+                                            <div class="progress-bar danger" id="prob-critical-bar" style="width: 1%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Description/Explanation -->
+                            <div class="explanation-card">
+                                <h4>Model Inference Explanation</h4>
+                                <p id="prediction-explanation">Telemetry data meets all criteria for optimal efficiency. The likelihood of critical system failure in the next 120 operational hours is negligible.</p>
+                            </div>
+
+                            <!-- API Source Badge -->
+                            <div class="source-metadata">
+                                <span><i data-lucide="globe"></i> Model Source: <strong id="source-badge-text">IBM Cloud WML (Mock Mode)</strong></span>
+                                <span><i data-lucide="clock"></i> Diagnostic Time: <strong id="timestamp-badge-text">12:00:00</strong></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Prediction History Log -->
+                <section class="dashboard-card history-card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i data-lucide="history" class="card-header-icon"></i>
+                            <h2>Diagnostic History Log</h2>
+                        </div>
+                        <button class="btn-text-danger" id="clear-history-btn" title="Clear History Log">
+                            <i data-lucide="trash-2"></i> Clear
+                        </button>
+                    </div>
+                    <div class="card-body history-table-container">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Confidence</th>
+                                    <th>Inputs (T, V, V, A, P)</th>
+                                    <th>Timestamp</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-rows">
+                                <!-- Dynamic history rows -->
+                                <tr class="empty-state-row">
+                                    <td colspan="5" class="empty-history-cell">
+                                        <i data-lucide="database-backup"></i>
+                                        <p>No historical runs logged yet.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer-bar">
+            <p>&copy; 2026 Sentinel-ML Diagnostics. Built for IBM Cloud Watson Machine Learning Integration.</p>
+            <div class="footer-links">
+                <span class="tag">WML v4 API</span>
+                <span class="tag">Secure Proxy Gateway</span>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Client Application Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

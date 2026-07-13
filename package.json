@@ -1,0 +1,21 @@
+{
+  "name": "ibm-wml-fault-detection",
+  "version": "1.0.0",
+  "description": "Fault detection and classification web application integrated with IBM Cloud WML",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "ibm-cloud",
+    "watson-machine-learning",
+    "fault-detection",
+    "predictive-maintenance"
+  ],
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
